@@ -1,16 +1,8 @@
 // Require schema and model from mongoose
-const mongoose = require('mongoose');
-const { scheduler } = require('timers/promises');
-
-// Function to test if a string qualifies as a valid email address according to regex filtering
-// Note: I pulled this one I used from the last module. Some can be more strict than others
-/* NOT NEEDED
-var validateEmail = function(email) {
-    var re = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6})*$/;
-}*/
+const { Schema, model } = require('mongoose');
 
 // Construct a new instance of the schema class
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     // Configure individual properties using Schema Types
     username: {
         type: String,
@@ -33,15 +25,36 @@ const userSchema = new mongoose.Schema({
     thoughts: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Thoughts',
+            ref: 'thought',
+            default: [],
         },
     ], 
     friends: [
         {
-            type: Schema.Types.ObectId,
-            ref: 'User',
+            type: Schema.Types.ObjectId,
+            ref: 'user',
+            default: [],
         },
     ],   
-});
+    },
+    {
+        // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
+        // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
+    }
+);
+
+userSchema
+    .virtual('friendCount')
+    // Getter
+    .get(function() {
+        return this.friends.length
+    })
+
+// Create a virtual property `commentCount` that gets the amount of comments per user
+const User = model('user', userSchema);
 
 module.exports = User;
