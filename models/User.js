@@ -14,13 +14,20 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
+
+        // This is needed if you are going to use unique AND validate. Otherwise validate will nullify 
+        // any uniqueness for some reason. Something about indexing. Place between for safety.
+        index: true,
+
         validate: {
             validator: function(v) {
                 // Note: I pulled this one I used from the last module. Some can be more strict than others
                 return /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6})*$/.test(v);
             },
-            nmessage: "Please enter a valid email"
-        }
+            message: "Please enter a valid email"
+        },
+        // This works too. Eaiser to read to me but the project directions say to use mongoose validation
+        //match: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6})*$/,
     },
     thoughts: [
         {

@@ -31,4 +31,13 @@ module.exports = {
         res.status(500).json(err);
       }
     },
+    // update an existing user
+    async updateUser(req, res) {
+      try {
+        const dbUserData = await User.findOneAndUpdate({ _id: req.params._id }, req.body);
+        res.json(dbUserData);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    }
   };

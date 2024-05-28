@@ -1,16 +1,19 @@
 const connection = require('../config/connection');
 const User = require('../models/User');
-const { getRandomName } = require('./data');
+const { getRandomName, emails } = require('./data');
 
 // Start the seeding runtime timer
+
 console.time('seeding');
 
 // Creates a connection to mongodb
 connection.once('open', async () => {
   // Delete the collections if they exist
   let userCheck = await connection.db.listCollections({ name: 'users' }).toArray();
+
   if (userCheck.length) {
     await connection.dropCollection('users');
+    await connection.dropCollection('thoughts');
   }
 
   // Empty arrays for randomly generated users
@@ -20,7 +23,7 @@ connection.once('open', async () => {
     const name = getRandomName();
     const newUser = {
       username: name,
-      email: 'emailgoeshere@yahoo.com',
+      email: emails[i],
       thoughts: [],
       friends: []
       
