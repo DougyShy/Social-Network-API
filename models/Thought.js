@@ -36,7 +36,9 @@ const thoughtSchema = new Schema({
         type: Date,
         default: Date.now,
         get: (date) => {
-            if (date) return date.toISOString().split("T") [0]; 
+            if (date) {
+                return new Date().toISOString().split("T") [0]; 
+            }
         }
     },
     username: {
@@ -45,8 +47,11 @@ const thoughtSchema = new Schema({
     },
     reactions: [
         reactionSchema    
-    ]
-});
+    ],
+    
+}
+//{ timestamps: true }
+);
 
 thoughtSchema
     .virtual('reactionCount')

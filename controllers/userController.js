@@ -76,7 +76,6 @@ module.exports = {
       try {
         const user = req.params.userId;
         const friendToDelete = req.params.friendId;
-        console.log(user,friendToDelete);
         if ((!user) || (!friendToDelete)) {
           return res.status(404).json({ message: 'No user with that ID or no new Friend with that ID' });
         }
