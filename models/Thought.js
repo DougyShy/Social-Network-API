@@ -41,10 +41,22 @@ const thoughtSchema = new Schema({
             }
         }
     },
+
     username: {
         type: String,
         required: true
     },
+
+    // Just messing around - not a requirement
+    /*updatedAt: {
+        type: Date,
+        get: (date) => {
+            if (date) {
+                return new Date().toISOString().split("T") [0]; 
+            }
+        }
+    },*/
+
     reactions: [
         reactionSchema    
     ],
