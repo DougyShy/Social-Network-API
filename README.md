@@ -48,9 +48,9 @@ Clinton Scheible
 
 ## Questions
 
-GitHub Profile: https://github.com/DougyShy
+GitHub Profile: https://github.com/DougyShy/Social-Network-API
 
-GitHub Project Link: https://github.com/DougyShy/Social-Network-API
+For a walkthrough see Usage section...
 
 E-mail: doug_scheible@yahoo.com
 
