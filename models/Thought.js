@@ -18,9 +18,16 @@ const reactionSchema = new Schema({
         type: Date,
         default: Date.now,
         get: (date) => {
-            if (date) return date.toISOString().split("T") [0];
+            if (date) {
+                return date.toLocaleString();
+            }
         }
     }
+},
+{
+    toJSON: {
+        getters: true,
+    },
 });
 
 // Construct a new instance of the schema class
@@ -37,7 +44,7 @@ const thoughtSchema = new Schema({
         default: Date.now,
         get: (date) => {
             if (date) {
-                return new Date().toISOString().split("T") [0]; 
+                return date.toLocaleString();
             }
         }
     },
@@ -47,22 +54,16 @@ const thoughtSchema = new Schema({
         required: true
     },
 
-    // Just messing around - not a requirement
-    /*updatedAt: {
-        type: Date,
-        get: (date) => {
-            if (date) {
-                return new Date().toISOString().split("T") [0]; 
-            }
-        }
-    },*/
-
     reactions: [
         reactionSchema    
     ],
     
+},
+{
+    toJSON: {
+        getters: true,
+    },
 }
-//{ timestamps: true }
 );
 
 thoughtSchema

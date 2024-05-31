@@ -7,7 +7,6 @@ module.exports = {
             const thoughts = await Thought.find();
             res.json(thoughts);                
         } catch (err) {
-            console.log('HERE');
             res.status(500).json(err)
         }
     },
@@ -66,8 +65,7 @@ module.exports = {
             return res.status(404).json({ message: 'No thought with that ID' });
           }
     
-          //await Application.deleteMany({ _id: { $in: user.applications } });
-          res.json({ message: 'Thought and associated reactions deleted!' }) // reactions not deleted yet??
+          res.json({ message: 'Thought and associated reactions deleted!' }) 
         } catch (err) {
           res.status(500).json(err);
         }

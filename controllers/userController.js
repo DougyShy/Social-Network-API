@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Thought = require('../models/Thought');
 
 module.exports = {
     async getUsers(req, res) {
@@ -49,9 +50,10 @@ module.exports = {
           return res.status(404).json({ message: 'No user with that ID' });
         }
   
-        //await Application.deleteMany({ _id: { $in: user.applications } });
-        res.json({ message: 'User and associated apps deleted!' })
+        await Thought.deleteMany({ _id: { $in: user.thoughts } });
+        res.json({ message: 'User and associated thoughts deleted!' });
       } catch (err) {
+        console.log(err);
         res.status(500).json(err);
       }
     },

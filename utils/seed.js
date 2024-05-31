@@ -23,12 +23,6 @@ connection.once('open', async () => {
 
   for (let i = 0; i < 5; i++) {
     const name = getRandomName();
-    const newThought = {
-      thoughtText: 'This is thought number' + i,
-      createdAt: new Date().toISOString().split("T") [0],
-      username: name,
-      reactions: []
-    };
     const newUser = {
       username: name,
       email: 'EmailNumber' + i + '@yahoo.com',
@@ -36,15 +30,12 @@ connection.once('open', async () => {
       friends: []
     };
     users.push(newUser);
-    thoughts.push(newThought);
   }
-
   // Wait for the users to be inserted into the database
   await User.insertMany(users);
   await Thought.insertMany(thoughts);
 
   console.table(users);
-  console.table(thoughts);
   console.timeEnd('seeding complete 🌱');
   process.exit(0);
 });
